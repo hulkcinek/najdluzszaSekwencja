@@ -14,18 +14,20 @@ public class Main {
         // wyznaczenie wszystkich sekwencji (wszystkich mozliwych)
         // wyznaczenie samej dlugosci najdluzszej sekwencji
 
-        liczbaObliczen++;
-        szukanie(ciag1, ciag2,0,0, "");
-        System.out.println(maxSekwencja);
-        System.out.println("Dlugosc " + maxDlugosc);
-        System.out.println("Liczba wywolan / obliczen " + liczbaObliczen);
+ //       liczbaObliczen++;
+//        szukanie(ciag1, ciag2,0,0, "");
+        //System.out.println(maxSekwencja);
+//        System.out.println("Dlugosc " + maxDlugosc);
+//        System.out.println("Liczba wywolan / obliczen " + liczbaObliczen);
         liczbaObliczen = 0;
-        int[][] tablica = wyznaczenieTablicy(ciag1, ciag2);
-        System.out.println("Liczba wywolan / obliczen " + liczbaObliczen);
-        liczbaObliczen = 0;
-        System.out.println(szukanieWersjaIteracyjna(tablica, ciag1, ciag2));
-        System.out.println("Liczba wywolan / obliczen " + liczbaObliczen);
-        System.out.println(szukanieWersjaRekurencyjna(tablica, ciag1, ciag2));
+            int[][] tablica = wyznaczenieTablicy(ciag1, ciag2);
+//        System.out.println("Liczba wywolan / obliczen " + liczbaObliczen);
+//        liczbaObliczen = 0;
+//        System.out.println(szukanieWersjaIteracyjna(tablica, ciag1, ciag2));
+//        System.out.println("Liczba wywolan / obliczen " + liczbaObliczen);
+
+        System.out.println(szukanieWersjaRekurencyjna(tablica, ciag1, ciag2, ciag2.length()-1, ciag1.length()-1, " "));
+        System.out.println("Rekurencja -> Liczba wywolan / obliczen " + liczbaObliczen);
     }
 
     public static void szukanie(String ciag1, String ciag2, int idx1, int idx2, String znalezionaSekwencja) {
@@ -107,8 +109,17 @@ public class Main {
     }
 
     // mozna do tej rekurencji cos dopisac np. indeksy itp.
-    public static String szukanieWersjaRekurencyjna(int[][] tablica, String ciag1, String ciag2) {
+    public static String szukanieWersjaRekurencyjna(int[][] tablica, String ciag1, String ciag2, int y,int x, String ciag) {
+        liczbaObliczen++;
+        if (ciag1.charAt(x)== ciag2.charAt(y)){
+            szukanieWersjaRekurencyjna(tablica, ciag1, ciag2, x-1, y-1,ciag + ciag1.charAt(y));
+        }else {
+            if (tablica[y-1][x] >= tablica[y][x-1])
+                szukanieWersjaRekurencyjna(tablica, ciag1, ciag2, y-1, x,ciag);
+            else
+                szukanieWersjaRekurencyjna(tablica, ciag1, ciag2, y, x-1,ciag);
+        }
 
-        return "";
+        return ciag;
     }
 }
